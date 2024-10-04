@@ -11,11 +11,12 @@ import java.util.Map;
 
 @FeignClient(url = "${microservices.url}/api/v1/movements-service/movements" , name = "movementsServiceClient")
 public interface MovementsServiceClient {
-    @PostMapping()
+
+    @PostMapping
     ResponseEntity<AccountMovement> createMovement (@RequestHeader Map<String, String> headers,
                                                      @RequestBody Movement movement);
 
-    @GetMapping()
+    @GetMapping
     ResponseEntity<List<AccountMovement>> findAllMovementsByAccountId (@RequestHeader Map<String, String> headers,
                                                                        @RequestParam Long accountId);
 }
