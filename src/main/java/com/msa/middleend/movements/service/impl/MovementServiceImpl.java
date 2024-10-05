@@ -21,8 +21,8 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     @CircuitBreaker(name = "movementsService", fallbackMethod = "fallbackCreateMovement")
-    public ResponseEntity<AccountMovement> createMovement(Map<String, String> headers, Movement movement) {
-        return this.movementsServiceClient.createMovement(headers, movement);
+    public AccountMovement createMovement(Map<String, String> headers, Movement movement) {
+        return this.movementsServiceClient.createMovement(headers, movement).getBody();
     }
 
     private ResponseEntity<String> fallbackCreateMovement() {
@@ -31,8 +31,8 @@ public class MovementServiceImpl implements MovementService {
 
     @Override
     @CircuitBreaker(name = "movementsService", fallbackMethod = "fallbackFindMovements")
-    public ResponseEntity<List<AccountMovement>> findAllMovementsByAccountId(Map<String, String> headers, Long accountId) {
-        return this.movementsServiceClient.findAllMovementsByAccountId(headers, accountId);
+    public List<AccountMovement> findAllMovementsByAccountId(Map<String, String> headers, Long accountId) {
+        return this.movementsServiceClient.findAllMovementsByAccountId(headers, accountId).getBody();
     }
     private ResponseEntity<String> fallbackFindMovements() {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Error getting movements");
