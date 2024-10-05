@@ -7,4 +7,7 @@ FROM openjdk:22-bullseye
 EXPOSE 8086
 ARG JAR_FILE=build/libs/*.jar
 COPY --from=build /home/gradle/src/producer/build/libs/*.jar /home/app.jar
+ENV SPRING_PROFILES_ACTIVE=default
+ENV APP_NAME=movements-middleend
+ENV PORT=8083
 CMD java -server -Dserver.tomcat.threads.max=200 -Duser.country=EC -Duser.language=es -Duser.timezone=America/Guayaquil -jar /home/app.jar
